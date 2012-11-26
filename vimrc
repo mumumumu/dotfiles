@@ -21,6 +21,10 @@ set nocompatible         " get rid of Vi compatibility mode. SET FIRST!
 call pathogen#infect()
 call pathogen#helptags()
 
+" Tagbar mappings
+let g:tagbar_usearrows = 1
+nnoremap <F8> :TagbarToggle<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events                                                                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
