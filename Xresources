@@ -6,7 +6,7 @@ URxvt.scrollBar: off
 ! transparency
 URxvt.transparent: true
 
-urxvt*font: xft:Anonymous Pro:size=10:antialias=true:hinting=true
+*font: xft:Anonymous Pro:size=10:antialias=true:hinting=true
 
 ! simple_rainbow
 *background:  #575757
