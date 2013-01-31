@@ -4,7 +4,8 @@
 URxvt.scrollBar: off
 
 ! transparency
-URxvt.transparent: true
+URxvt*.shading: 80
+URxvt*.transparent: true
 
 *font: xft:Anonymous Pro:size=10:antialias=true:hinting=true
 
