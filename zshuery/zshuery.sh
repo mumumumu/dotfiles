@@ -114,6 +114,7 @@ prompts() {
 prompt_char() { # by Steve Losh
     git branch >/dev/null 2>/dev/null && echo '±' && return
     hg root >/dev/null 2>/dev/null && echo '☿' && return
+    bzr root >/dev/null 2>/dev/null && echo '↥' && return
     if (( $# == 0 )); then
       echo '$'
     else
@@ -262,7 +263,6 @@ load_aliases() {
     alias pinst='sudo python setup.py install && sudo rm -r build && sudo rm -r dist && sudo rm -r *egg-info' # install a Python package
     alias beep='echo -n "\a"'
     alias lst="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
-    alias ls='ls -G'
 }
 load_lol_aliases() {
     # Source: http://aur.archlinux.org/packages/lolbash/lolbash/lolbash.sh
