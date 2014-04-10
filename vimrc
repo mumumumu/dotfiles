@@ -23,7 +23,16 @@ call pathogen#helptags()
 
 " Tagbar mappings
 let g:tagbar_usearrows = 1
-nnoremap <F8> :TagbarToggle<CR>
+nnoremap <C-\> :TagbarToggle<CR>
+
+" Change the mapleader from \ to ,
+let mapleader=","
+
+" Syntastic
+let g:syntastic_check_on_open=1
+let g:syntastic_python_checkers=["flake8"]
+
+au BufNewFile,BufRead *.html set filetype=htmldjango
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events                                                                 "
@@ -58,11 +67,24 @@ set cul                   " highlight current line
 set laststatus=2          " last window always has a statusline
 set hlsearch              " highlight earched phrases.
 set ignorecase            " make searches case-insensitive.
+set incsearch             " incremental search as you type
 set smartcase             " searches become case-sensitive if multiple cases
 set ruler                 " Always show info along bottom.
-set showmatch
+set showmatch             " show matching braces when text indicator is over them
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 set scrolloff=10
+set autochdir             " auto set current directory to directory of last opened file
+set wildmode=longest,list " tab completion for files/buffers
+set wildmenu
+set mouse+=a              " enable mouse mode (scrolling, selection, etc)
+set splitbelow            " open new split panes to right and bottom
+set splitright
+
+" quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 05. Text Formatting/Layout                                                 "
