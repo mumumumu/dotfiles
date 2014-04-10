@@ -3,6 +3,10 @@ dotfiles
 
 My custom dotfiles.
 
+After cloning for the first time make sure to run
+
+    git submodule init && git submodule update
+
 To update vim plugins run the following command:
 
     git submodule foreach git pull origin master
