@@ -28,11 +28,16 @@ nnoremap <C-\> :TagbarToggle<CR>
 " Change the mapleader from \ to ,
 let mapleader=","
 
-" Syntastic
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=["flake8"]
+" 2 space tabs in css files
+"autocmd FileType css,scss setl sw=2 sts=2 et
 
-au BufNewFile,BufRead *.html set filetype=htmldjango
+" vim-jsx = allow jsx synax highlighting in .js files
+let g:jsx_ext_required = 0
+
+" python
+set foldlevelstart=1
+let g:jedi#completions_command = "<Tab>"
+let g:jedi#use_splits_not_buffers = "winwidth"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 02. Events                                                                 "
@@ -43,7 +48,7 @@ filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
 autocmd FileType make setlocal noexpandtab
 " Load CloseTag only for html/xml like files
 autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/dotfiles/vim/bundle/closetag/plugin/closetag.vim
 
 " Enable omnicompletion (to use, hold Ctrl+X then Ctrl+O while in Insert mode.
 set ofu=syntaxcomplete#Complete
@@ -56,7 +61,7 @@ syntax enable             " enable syntax highlighting (previously syntax on).
 colorscheme molokai       " set colorscheme
 
 " Highlight characters that go over 80 columns
-highlight ColorColumn ctermbg=lightgrey
+highlight ColorColumn ctermbg=black
 set colorcolumn=120
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -97,3 +102,23 @@ set shiftround            " always indent/outdent to the nearest tabstop
 set expandtab             " use spaces instead of tabs
 set smarttab              " use tabs at the start of a line, spaces elsewhere
 set nowrap                " don't wrap text
+
+autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 06. Neomake
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd! BufWritePost,BufEnter * Neomake
+
+"nmap <Leader><Space>o :lopen<CR>      " open location window
+"nmap <Leader><Space>c :lclose<CR>     " close location window
+"nmap <Leader><Space>, :ll<CR>         " go to current error/warning
+nmap <Leader><Space>n :lnext<CR>      " next error/warning
+nmap <Leader><Space>p :lprev<CR>      " previous error/warning
+
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_warning_sign = {'texthl': 'WarningMsg'}
+let g:neomake_error_sign = {'texthl': 'ErrorMsg'}
