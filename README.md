@@ -17,4 +17,3 @@ To add new vim plugins run the following commands:
     git submodule add http://github.com/plugin/repo.git
     git add .
     git commit -m 'installed new vim plugin as a submodule'
-

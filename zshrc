@@ -1,24 +1,24 @@
-cd
-
 source ~/dotfiles/zshuery/zshuery.sh
 load_defaults
 load_aliases
 load_lol_aliases
-load_completion ~/dotfiles/zshuery/completion
+load_completion ~/dotfiles/zsh/completion
 load_correction
 
 export HISTSIZE=16384
 export HISTFILE="$HOME/.zsh_history"
 export SAVEHIST=$HISTSIZE
+# export TERM=xterm-256color
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 export GREP_OPTIONS="--color"
 
 # default key bindings (ctrl-a, ctrl-e, etc.)
 bindkey -e
 
-prompts '%{$fg_bold[green]%}$(COLLAPSED_DIR)%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}$(ruby_version)%{$reset_color%}'
+#prompts '%{$fg_bold[green]%}$(COLLAPSED_DIR)%{$reset_color%}$(virtualenv_info) %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}$(ruby_version)%{$reset_color%}'
+prompts '%{$fg_bold[green]%}$(COLLAPSED_DIR)%{$reset_color%} %{$fg[yellow]%}$(prompt_char)%{$reset_color%} ' '%{$fg[red]%}$(ruby_version)%{$reset_color%}'
 
 # speed up auto completion
 zstyle ':completion:*' accept-exact '*(N)'
@@ -35,11 +35,28 @@ alias gs='git status -sb'
 alias gc='git commit'
 alias ga='git add'
 alias gl="git log --graph --pretty=format:'%Cred%h%Creset %an: %s - %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias gd='git diff'
+alias gd='git diff -w'
 alias gco='git checkout'
 alias gb='git branch'
+alias gls='git stash list'
+
+alias v='nvim'
+
+alias vim='nvim'
+alias grepy='grep -rn --include="*.py"'
 
 # Allow local customizations in ~/.zshrc_local
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# eval "$(_TMUXP_COMPLETE=source tmuxp)"
+
+# autoload -U edit-command-line
+# zle -N edit-command-line
+# bindkey -M vicmd v edit-command-line
