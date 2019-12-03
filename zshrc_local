@@ -1,11 +1,67 @@
-# virtualenv wrapper exports
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/projects
-export VIRTUALENVWRAPPER_VIRTUALENV="pyvenv"
-source /usr/bin/virtualenvwrapper.sh
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
-# rvm
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
+fi
 
-# RVM bash completion
-[[ -r "$HOME/.rvm/scripts/completion" ]] && source "$HOME/.rvm/scripts/completion"
+alias proxy_dev_db='convox rack resources proxy -p 54321 dev-db-v2-encrypted -rdev'
+alias proxy_staging_db='convox rack resources proxy -p 54321 database-v2-encrypted -rstaging'
+alias proxy_prod_db='convox rack resources proxy -p 54320 database-v2-encrypted -rprod'
+
+#export REPLICA_DB='production-database-v2-encrypted-replica.clj3cxlfx6w5.us-east-1.rds.amazonaws.com'
+#
+alias dsh='docker exec -it mighty-v2_web_1 sh'
+#alias drs='docker exec -it mighty-v2_web_1 ./manage.py runserver 0.0.0.0:8001'
+alias dsp='docker exec -it mighty-v2_web_1 ./manage.py shell_plus'
+#alias drt='docker exec -it mighty-v2_web_1 "coverage run ./manage.py test -k -v2 && coverage html --include="mighty*""'
+#alias docker_clean='docker images -q --filter "dangling=true" | xargs docker rmi'
+
+#export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+#export WORKON_HOME=$HOME/.virtualenvs
+#export PROJECT_HOME=$HOME/projects
+#source /usr/local/bin/virtualenvwrapper.sh
+
+#workon mighty-v2
+
+alias staging_shell_plus='convox run --rack staging --app mighty-v2 web ./manage.py shell_plus'
+alias prod_shell_plus='convox run --rack production --app mighty-v2 web ./manage.py shell_plus'
+
+alias convox_watch_staging='watch -n 5 convox ps --rack staging --app mighty-v2'
+alias convox_watch_prod='watch -n 5 convox ps --rack production --app mighty-v2'
+
+#alias convox_staging='convox --rack development --app staging-v2'
+#alias convox_prod='convox --rack production --app mighty-v2'
+
+v2-release-checklist() {
+    cd ~/projects/mighty-v2
+    convox builds --rack production --app mighty-v2 --limit 100 \
+        | grep $(convox releases --rack production --app mighty-v2 --limit 100 | grep active | awk '{print $3}') \
+        | awk '{print $8}' \
+        | xargs -I {} sh -c "git fetch origin master; git log origin/master --pretty=format:'[] %an - %s' {}..origin/HEAD"
+}
+
+registry-release-checklist() {
+    cd ~/projects/registry-client
+    convox builds --rack production --app registry-client --limit 100 \
+        | grep $(convox releases --rack production --app registry-client --limit 100 | grep active | awk '{print $3}') \
+        | awk '{print $8}' \
+        | xargs -I {} sh -c "git fetch origin master; git log origin/master --pretty=format:'[] %an - %s' {}..origin/HEAD"
+}
+
+reload-worker() {
+    docker-compose stop worker
+    docker-compose rm -f worker
+    docker-compose up -d worker
+}
+
+reload-container() {
+    docker-compose stop $1
+    docker-compose rm -f $1
+    docker-compose up -d $1
+}
+
+v2-up() {
+    docker-compose up -d --scale deduper=0
+}
