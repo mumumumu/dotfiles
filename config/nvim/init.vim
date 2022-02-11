@@ -15,9 +15,20 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'airblade/vim-gitgutter'
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" python
+Plug 'psf/black', { 'branch': 'stable' }
+
 " typescript
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
+
+" terraform
+Plug 'hashivim/vim-terraform'
+
+" salesforce
+Plug 'ejholmes/vim-forcedotcom'
 
 call plug#end()
 
@@ -48,6 +59,7 @@ set mouse=a  " enable mouse scrolling in vim
 set clipboard+=unnamedplus
 
 autocmd FileType javascript,typescript,yaml,sh setlocal ts=2 sw=2 sts=2 expandtab
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript
 
 autocmd BufWritePre * :%s/\s\+$//e  " trim trailing white space on save
 
