@@ -1,0 +1,27 @@
+bindkey -e
+
+export EDITOR=vim
+
+# Enable Completions
+autoload -Uz compinit && compinit
+
+# Load Completions
+for file in ~/.config/zsh/completions/*.zsh; do
+    source $file;
+done
+
+# Load Key Bindings
+for file in ~/.config/zsh/key-bindings/*.zsh; do
+    source $file;
+done
+
+# History
+export HISTSIZE=10000
+export SAVEHIST=10000
+export HISTFILE=~/.zsh_history
+setopt INC_APPEND_HISTORY    # write after each command
+
+# Aliases
+alias v=vim
+
+eval "$(starship init zsh)"
