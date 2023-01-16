@@ -3,12 +3,8 @@ bindkey -e
 export EDITOR=vim
 
 # Enable Completions
+fpath=(~/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
-
-# Load Completions
-for file in ~/.config/zsh/completions/*.zsh; do
-    source $file;
-done
 
 # Load Key Bindings
 for file in ~/.config/zsh/key-bindings/*.zsh; do
