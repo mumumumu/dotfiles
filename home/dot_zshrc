@@ -15,9 +15,17 @@ done
 export HISTSIZE=10000
 export SAVEHIST=10000
 export HISTFILE=~/.zsh_history
+setopt SHARE_HISTORY
 setopt INC_APPEND_HISTORY    # write after each command
+
+# FZF
+export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git --color=always"
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(hidden|50%)'"
+export FZF_ALT_C_OPTS="--preview 'tree -C{}'"
 
 # Aliases
 alias v=vim
+alias l="ls -la --color=auto"
 
 eval "$(starship init zsh)"
