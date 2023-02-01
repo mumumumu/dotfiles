@@ -28,4 +28,5 @@ export FZF_ALT_C_OPTS="--preview 'tree -C{}'"
 alias v=vim
 alias l="ls -la --color=auto"
 
+eval "$(keychain --quiet --eval --agents ssh id_rsa)"
 eval "$(starship init zsh)"
