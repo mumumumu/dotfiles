@@ -29,5 +29,10 @@ alias v=vim
 alias l="ls -la --color=auto"
 alias so="source ~/.zshrc"
 
+# Load Aliases
+for file in ~/.config/zsh/aliases/*.zsh; do
+    source $file;
+done
+
 eval "$(keychain --quiet --eval --agents ssh id_rsa)"
 eval "$(starship init zsh)"
