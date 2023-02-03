@@ -1,3 +1,5 @@
 [user]
 	email = jeff@moo.dev
 	name = Jeff Mu
+[push]
+	autoSetupRemote = true
