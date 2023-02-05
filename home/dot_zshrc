@@ -4,16 +4,16 @@ export EDITOR=vim
 
 # Enable Completions
 fpath=(~/.config/zsh/completions $fpath)
+autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
-# Load Completion Scripts
 for file in ~/.config/zsh/completions/*.zsh; do
-    source $file;
+    source $file
 done
 
 # Load Key Bindings
 for file in ~/.config/zsh/key-bindings/*.zsh; do
-    source $file;
+    source $file
 done
 
 # History
@@ -36,8 +36,11 @@ alias so="source ~/.zshrc"
 
 # Load Aliases
 for file in ~/.config/zsh/aliases/*.zsh; do
-    source $file;
+    source $file
 done
+
+# Update PATH
+export PATH=~/.pulumi/bin:~/.local/bin:$PATH
 
 eval "$(keychain --quiet --eval --agents ssh id_rsa)"
 eval "$(starship init zsh)"
