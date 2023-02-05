@@ -6,6 +6,11 @@ export EDITOR=vim
 fpath=(~/.config/zsh/completions $fpath)
 autoload -Uz compinit && compinit
 
+# Load Completion Scripts
+for file in ~/.config/zsh/completions/*.zsh; do
+    source $file;
+done
+
 # Load Key Bindings
 for file in ~/.config/zsh/key-bindings/*.zsh; do
     source $file;
