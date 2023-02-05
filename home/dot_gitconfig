@@ -3,3 +3,5 @@
 	name = Jeff Mu
 [push]
 	autoSetupRemote = true
+[init]
+	defaultBranch = main
