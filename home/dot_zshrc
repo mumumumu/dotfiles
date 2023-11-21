@@ -1,6 +1,6 @@
 bindkey -e
 
-export EDITOR=vim
+export EDITOR=nvim
 
 # Enable Completions
 fpath=(~/.config/zsh/completions $fpath)
@@ -30,7 +30,7 @@ export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}' --bind 'ctrl-/:chan
 export FZF_ALT_C_OPTS="--preview 'tree -C{}'"
 
 # Aliases
-alias v=vim
+alias v=nvim
 alias l="ls -la --color=auto"
 alias so="source ~/.zshrc"
 
