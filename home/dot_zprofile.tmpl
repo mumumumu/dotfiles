@@ -1,0 +1,6 @@
+{{- if eq .chezmoi.os "linux" -}}
+eval "$(keychain --quiet --eval --agents ssh id_rsa)"
+{{- end -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{ output "/opt/homebrew/bin/brew" "shellenv" | trim }}
+{{- end -}}
