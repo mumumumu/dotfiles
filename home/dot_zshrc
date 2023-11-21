@@ -41,5 +41,6 @@ done
 
 # Update PATH
 export PATH=~/.pulumi/bin:~/.local/bin:$PATH
+cdpath=($HOME/projects)
 
 eval "$(starship init zsh)"
