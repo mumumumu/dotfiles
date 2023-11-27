@@ -1,7 +1,12 @@
 [user]
 	email = jeff@moo.dev
-	name = Jeff Mu
+	name = jeff
 [push]
 	autoSetupRemote = true
 [init]
 	defaultBranch = main
+[pull]
+	rebase = true
+[rebase]
+	autosquash = true
+	autostash = true
