@@ -7,6 +7,8 @@ fpath=(~/.config/zsh/completions $fpath)
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit && compinit
 
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+
 for file in ~/.config/zsh/completions/*.zsh; do
     source $file
 done
@@ -28,11 +30,16 @@ export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git --co
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_CTRL_T_OPTS="--ansi --preview 'bat -n --color=always {}' --bind 'ctrl-/:change-preview-window(hidden|50%)'"
 export FZF_ALT_C_OPTS="--preview 'tree -C{}'"
+export FZF_COMPLETION_TRIGGER=''
+bindkey '^T' fzf-completion
+bindkey '^I' $fzf_default_completion
 
 # Aliases
 alias v=nvim
+alias vf="fd --type f --hidden --exclude .git --print0 | fzf-tmux -p --reverse --read0 --print0 --exit-0 | xargs -r -0 nvim"
 alias l="ls -la --color=auto"
 alias so="source ~/.zshrc"
+alias awsume=". awsume"
 
 # Load Aliases
 for file in ~/.config/zsh/aliases/*.zsh; do
@@ -40,7 +47,24 @@ for file in ~/.config/zsh/aliases/*.zsh; do
 done
 
 # Update PATH
-export PATH=~/.pulumi/bin:~/.local/bin:$PATH
 cdpath=($HOME/projects)
 
 eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/home/jeff/.bun/_bun" ] && source "/home/jeff/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+## Work
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/jeff/projects/dbt/google-cloud-sdk/path.zsh.inc' ]; then . '/home/jeff/projects/dbt/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/jeff/projects/dbt/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jeff/projects/dbt/google-cloud-sdk/completion.zsh.inc'; fi
+
+export HERMIT_BIN_INSTALL_DIR=~/.local/bin
+export PATH=~/.pulumi/bin:~/.local/bin:$PATH
